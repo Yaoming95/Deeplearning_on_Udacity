@@ -1,7 +1,7 @@
 from sklearn.linear_model import LogisticRegression
-from A1_4_splitting import data_split
+from .A1_4_splitting import data_split
 from sklearn.metrics import mean_squared_error, r2_score
-from A1_P4_shuffling import randomize
+from .A1_P4_shuffling import randomize
 
 
 TRAINING_NUM = 8000

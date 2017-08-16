@@ -2,9 +2,9 @@ from __future__ import print_function
 
 import matplotlib.pyplot as plt
 import numpy as np
-from util.LabelLetterEnum import LabelLetterEnum
+from .util.LabelLetterEnum import LabelLetterEnum
 
-from A1_4_splitting import data_split
+from .A1_4_splitting import data_split
 
 
 def randomize(dataset, labels):

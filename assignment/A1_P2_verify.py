@@ -1,4 +1,4 @@
-from A1_3_convert2Array import *
+from .A1_3_convert2Array import *
 
 
 
