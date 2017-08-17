@@ -3,8 +3,8 @@ from __future__ import print_function
 import numpy as np
 from six.moves import cPickle as pickle
 
-from .A1_3_convert2Array import get_datasets
-from .A1_3_convert2Array import image_size
+from assignment.A1_3_convert2Array import get_datasets
+from assignment.A1_3_convert2Array import image_size
 
 
 def make_arrays(nb_rows, img_size):

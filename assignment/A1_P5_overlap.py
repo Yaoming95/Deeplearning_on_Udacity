@@ -4,7 +4,7 @@ import hashlib
 
 import numpy as np
 
-from .A1_4_splitting import data_split
+from assignment.A1_4_splitting import data_split
 
 
 def get_overlap_index(dataset1, dataset2):

@@ -1,10 +1,10 @@
 from sklearn.linear_model import LogisticRegression
-from .A1_4_splitting import data_split
+from assignment.A1_4_splitting import data_split
 from sklearn.metrics import mean_squared_error, r2_score
-from .A1_P4_shuffling import randomize
+from assignment.A1_P4_shuffling import randomize
 
 
-TRAINING_NUM = 8000
+TRAINING_NUM = 800
 
 def mat2array(dataset):
     return dataset.reshape((dataset.shape[0], -1), order='F')
