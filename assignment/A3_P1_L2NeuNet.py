@@ -1,18 +1,11 @@
 from __future__ import print_function
-import numpy as np
+
 import tensorflow as tf
-from six.moves import cPickle as pickle
-from six.moves import range
-from assignment.A2_0_const import *
+
 from assignment.A2_1_reformat import get_data, open_file
 from assignment.A2_2_gradientDescentTraining import accuracy
-
-def ReLUNeural(x, weights, bias):
-    layer = tf.add(tf.matmul(x, weights['w1']), bias['b1'])
-    layer = tf.nn.relu(layer)
-    layer = tf.matmul(layer, weights['w2']) + bias['b2']
-    return layer
-
+from assignment.A3_0_const import *
+from assignment.A2_P_ReLUNeuralNetwork import ReLUNeural
 
 if __name__ == '__main__':
     train_dataset, train_labels, valid_dataset, valid_labels, test_dataset, test_labels = open_file()
@@ -22,7 +15,8 @@ if __name__ == '__main__':
                                                                                                    valid_labels,
                                                                                                    test_dataset,
                                                                                                    test_labels)
-
+    beta = 0.1
+    num_steps = int(num_steps / 4)
     graph = tf.Graph()
     with graph.as_default():
         tf_train_dataset = tf.constant(train_dataset[:train_subset, :])
@@ -41,6 +35,8 @@ if __name__ == '__main__':
 
         logits = ReLUNeural(tf_train_dataset, weights, bias)
         loss = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(labels=tf_train_labels, logits=logits))
+        regularization = tf.add(tf.nn.l2_loss(weights['w1']) , tf.nn.l2_loss(weights['w2']))
+        loss = tf.add(loss, beta*regularization)
 
         train_prediction = tf.nn.softmax(logits)
         valid_prediction = tf.nn.softmax(ReLUNeural(tf_valid_dataset, weights, bias))

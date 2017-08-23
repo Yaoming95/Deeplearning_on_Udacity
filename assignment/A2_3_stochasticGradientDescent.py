@@ -47,6 +47,7 @@ if __name__ == '__main__':
         with tf.Session(graph=graph) as session:
             tf.global_variables_initializer().run()
             print("Initialized")
+            num_steps *= 10
             for step in range(num_steps):
                 # Pick an offset within the training data, which has been randomized.
                 # Note: we could use better randomization across epochs.
