@@ -6,11 +6,17 @@ from six.moves import cPickle as pickle
 from assignment.A2_0_const import *
 
 
-def reformat(dataset, labels):
-    dataset = dataset.reshape((-1, image_size * image_size)).astype(np.float32)
-    # Map 0 to [1.0, 0.0, 0.0 ...], 1 to [0.0, 1.0, 0.0 ...]
-    labels = (np.arange(num_labels) == labels[:, None]).astype(np.float32)
-    return dataset, labels
+def reformat(dataset, labels, is_cnn = False, num_channels = 1):
+    if is_cnn is False:
+        dataset = dataset.reshape((-1, image_size * image_size)).astype(np.float32)
+        # Map 0 to [1.0, 0.0, 0.0 ...], 1 to [0.0, 1.0, 0.0 ...]
+        labels = (np.arange(num_labels) == labels[:, None]).astype(np.float32)
+        return dataset, labels
+    else:
+        dataset = dataset.reshape(
+            (-1, image_size, image_size, num_channels)).astype(np.float32)
+        labels = (np.arange(num_labels) == labels[:, None]).astype(np.float32)
+        return dataset, labels
 
 
 def open_file():
@@ -37,6 +43,11 @@ def get_data(train_dataset, train_labels, valid_dataset, valid_labels, test_data
     test_dataset, test_labels = reformat(test_dataset, test_labels)
     return train_dataset, train_labels, valid_dataset, valid_labels, test_dataset, test_labels
 
+def get_data_cnn(train_dataset, train_labels, valid_dataset, valid_labels, test_dataset, test_labels):
+    train_dataset, train_labels = reformat(train_dataset, train_labels, True)
+    valid_dataset, valid_labels = reformat(valid_dataset, valid_labels, True)
+    test_dataset, test_labels = reformat(test_dataset, test_labels, True)
+    return train_dataset, train_labels, valid_dataset, valid_labels, test_dataset, test_labels
 
 if __name__ == '__main__':
     train_dataset, train_labels, valid_dataset, valid_labels, test_dataset, test_labels = open_file()
